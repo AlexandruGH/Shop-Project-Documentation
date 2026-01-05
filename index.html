@@ -1243,45 +1243,86 @@ private void dfs(char[][] grid, int i, int j) {
             </div>
         </section>
 
-        <!-- SECTION 9: Soft Skills & Career (NEW) -->
-        <section id="softskills" class="scroll-mt-20 pb-20">
-            <div class="border-b border-slate-200 pb-4 mb-6">
-                <span class="text-emerald-600 font-bold uppercase tracking-wider text-xs">Modulul 9</span>
-                <h2 class="text-3xl font-bold text-slate-900 mt-2">Soft Skills & Cariera</h2>
-                <p class="text-slate-600 mt-2">Cum să treci de interviul HR și tehnic.</p>
-            </div>
+        <!-- SECTION 9: Soft Skills & Career (UPDATED) -->
+<section id="softskills" class="scroll-mt-20 pb-20">
+    <div class="border-b border-slate-200 pb-4 mb-6">
+        <span class="text-emerald-600 font-bold uppercase tracking-wider text-xs">Modulul 9</span>
+        <h2 class="text-3xl font-bold text-slate-900 mt-2">Soft Skills & Cariera</h2>
+        <p class="text-slate-600 mt-2">Cum să treci de interviul HR și tehnic și să vinzi eficient skill-urile tale.</p>
+    </div>
 
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Prezentare Proiect -->
-                <div class="bg-white border-l-4 border-emerald-500 shadow-sm p-6 rounded-r-lg">
-                    <h3 class="font-bold text-slate-800 text-lg mb-4">Cum prezinți Proiectul?</h3>
-                    <p class="text-sm text-slate-600 mb-4">Nu spune doar "am făcut un magazin". Folosește structura:</p>
-                    <ul class="space-y-3 text-sm text-slate-700">
-                        <li><strong>1. Problema:</strong> "Am vrut să rezolv problema scalabilității într-un sistem e-commerce cu mii de produse."</li>
-                        <li><strong>2. Soluția:</strong> "Am construit o aplicație Cloud-Native cu arhitectură stratificată."</li>
-                        <li><strong>3. Tehnologii:</strong> "Backend Spring Boot pentru robustețe, React pentru interactivitate, PostgreSQL pentru date relaționale și Redis pentru caching."</li>
-                        <li><strong>4. Arhitectură:</strong> "Am folosit Clean Code, principii SOLID și N-Tier Architecture. Securitatea este asigurată prin JWT Stateless."</li>
-                    </ul>
-                </div>
+    <div class="grid md:grid-cols-2 gap-8">
+        <!-- Prezentare Proiect -->
+        <div class="bg-white border-l-4 border-emerald-500 shadow-sm p-6 rounded-r-lg">
+            <h3 class="font-bold text-slate-800 text-lg mb-4">Cum prezinți Proiectul?</h3>
+            <p class="text-sm text-slate-600 mb-4">
+                Nu spune doar "am făcut un magazin". Folosește structura clară: Problema – Soluția – Tehnologii – Arhitectură. Exemplu concret pentru un proiect Fullstack:
+            </p>
+            <ul class="space-y-3 text-sm text-slate-700">
+                <li><strong>1. Problema:</strong> "Am vrut să construiesc un magazin online scalabil, cu mii de produse și chat realtime între clienți și suport."</li>
+                <li><strong>2. Soluția:</strong> "Am dezvoltat o aplicație Cloud-Native cu arhitectură modulară monolitică, separând clar frontend, backend și caching."</li>
+                <li><strong>3. Tehnologii:</strong> "Backend Spring Boot cu JWT Stateless Security, PostgreSQL pe Neon, Redis pe Upstash, React pe Netlify, Firestore pentru chat realtime, Docker pentru containere, Swagger pentru documentație API."</li>
+                <li><strong>4. Arhitectură:</strong> "Am aplicat Clean Code, principii SOLID, N-Tier Architecture. Modul monolitic modular pentru scalabilitate, testabilitate și mentenanță ușoară."</li>
+                <li><strong>5. Rezultate / Impact:</strong> "Cache-ul Redis a redus timpul de răspuns cu 30%, Partial Index în PostgreSQL a accelerat interogările cu 40%, chat-ul Firestore a permis interacțiune realtime fără blocaje." </li>
+            </ul>
+            <p class="text-sm text-slate-600 mt-3 italic">Acest exemplu arată clar <strong>impactul tehnic și valoarea adusă</strong>. Este un punct esențial pentru interviu.</p>
+        </div>
 
-                <!-- Structura CV -->
-                <div class="bg-white border-l-4 border-blue-500 shadow-sm p-6 rounded-r-lg">
-                    <h3 class="font-bold text-slate-800 text-lg mb-4">Structura CV-ului Tehnic</h3>
-                    <ul class="space-y-3 text-sm text-slate-700">
-                        <li><strong>Header:</strong> Nume, Link GitHub, Link LinkedIn (obligatoriu).</li>
-                        <li><strong>Skills:</strong> Grupează-le: <em>Languages (Java, JS), Frameworks (Spring, React), Tools (Docker, Git, AWS)</em>.</li>
-                        <li><strong>Projects (CRUCIAL):</strong>
-                            <div class="bg-slate-50 p-2 mt-1 rounded border border-slate-200 text-xs italic">
-                                "E-Shop Full Stack | Java, React, Docker"<br>
-                                - Implementat sistem de autentificare JWT Stateless.<br>
-                                - Optimizat interogările SQL cu Partial Index (viteză +40%).<br>
-                                - Integrat Redis Cache pentru a reduce load-ul pe DB.
-                            </div>
-                        </li>
+        <!-- Structura CV & Personal Branding -->
+        <div class="bg-white border-l-4 border-blue-500 shadow-sm p-6 rounded-r-lg">
+            <h3 class="font-bold text-slate-800 text-lg mb-4">Structura CV-ului Tehnic și Branding Personal</h3>
+            <ul class="space-y-3 text-sm text-slate-700">
+                <li><strong>Adaptează CV-ul tău în funcție de poziția și firma pentru care aplici. E.g. Dacă aplici pentru o poziție de Java cu React prioritizează proiectele și skillurile relevante. Nu-ți începe CV în acest caz cu un proiect de Arduino, Embedded sau Grafică. Primul proiect din CV trebuie să fie cel mai relevant, urmat de celelalte în ordine descrescătoare</strong>.</li>
+                <li><strong>Header:</strong> Nume complet, poza profesională, GitHub, LinkedIn, email profesional (ex: prenume.nume@email.com).</li>
+                <li><strong>Skills:</strong> Grupează: <em>Languages (Java, JavaScript), Frameworks (Spring, React), Tools (Docker, Git, AWS/Cloud), Databases (Postgres, Firestore, Redis)</em>.</li>
+                <li><strong>Proiecte (CRUCIAL):</strong>
+                    <div class="bg-slate-50 p-2 mt-1 rounded border border-slate-200 text-xs italic">
+                        "E-Shop Full Stack | Java, Spring, React, PostgreSQL, Redis, Firestore, Docker, Netlify, JWT Security"<br>
+                        - JWT Stateless Authentication & Role-Based Access Control.<br>
+                        - Optimizări SQL cu Partial Index (viteză +40%).<br>
+                        - Redis Cache pentru reducerea load-ului pe DB.<br>
+                        - Firestore pentru chat realtime între utilizatori.<br>
+                        - Swagger pentru documentația API.<br>
+                        - Deploy complet pe Render & Netlify.
+                    </div>
+                </li>
+                <li><strong>Educație / Certificări:</strong> Include relevante (Java, Spring, Cloud, Docker).</li>
+                <li><strong>Tehnici de vânzare personală:</strong>
+                    <ul class="list-disc list-inside ml-4 mt-1">
+                        <li>La HR: arată cum <strong>soft skills și teamwork</strong> contribuie la echipă.</li>
+                        <li>La tech: explică cum <strong>skill-urile tale aduc valoare concretă</strong> în firmă.</li>
+                        <li>Exemplu întrebare pentru branding personal: <em>"Cum ați vedea că experiența mea fullstack poate accelera livrarea proiectelor în echipa voastră?"</em></li>
                     </ul>
-                </div>
-            </div>
-        </section>
+                </li>
+                <li><strong>Social & Contact:</strong> LinkedIn cu profil complet, GitHub activ, email profesionist. Evită nickname-uri sau cuvinte amuzante (ex: spiderman123).</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Intrebari pregatite pentru interviu -->
+    <div class="mt-12 grid md:grid-cols-2 gap-8">
+        <div class="bg-white border-l-4 border-rose-500 shadow-sm p-6 rounded-r-lg">
+            <h3 class="font-bold text-slate-800 text-lg mb-4">Întrebări frecvente HR</h3>
+            <ul class="space-y-3 text-sm text-slate-700">
+                <li><strong>Spune-ne despre tine:</strong> Prezintă proiectul Fullstack, focus pe impact și tehnologii.</li>
+                <li><strong>De ce vrei să lucrezi aici?</strong> Leagă-ți skill-urile de specificul companiei și de proiectele lor, ideal de o pasiune pe care o ai în zona domeniului lor de activitate.</li>
+                <li><strong>Cum te descurci cu deadline-uri strânse?</strong> Exemplu concret din proiectul magazinului online (deploy rapid, testing automat).</li>
+                <li><strong>Alocă timp înainte de fiecare interviu pentru a studia firma la care aplici și domeniul ei de activitate.</strong>
+            </ul>
+        </div>
+        <div class="bg-white border-l-4 border-indigo-500 shadow-sm p-6 rounded-r-lg">
+            <h3 class="font-bold text-slate-800 text-lg mb-4">Întrebări frecvente tehnice</h3>
+            <ul class="space-y-3 text-sm text-slate-700">
+                <li>Explică arhitectura modul monolith + N-Tier și avantajele sale.</li>
+                <li>Cum ai folosit Redis și PostgreSQL împreună pentru performanță?</li>
+                <li>JWT vs session-based authentication, de ce ai ales Stateless în Spring Boot?</li>
+                <li>Descrie modul de deploy: Netlify pentru frontend, Render pentru backend.</li>
+                <li>Explică integrarea Firestore realtime chat și cum ai gestionat securitatea datelor.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
 
     </main>
 
