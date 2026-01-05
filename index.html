@@ -841,78 +841,181 @@ public class UserService {
             </div>
         </section>
 
-        <!-- SECTION 5: Frontend -->
-        <section id="frontend" class="scroll-mt-20">
-            <div class="border-b border-slate-200 pb-4 mb-6">
-                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs">Modulul 5</span>
-                <h2 class="text-3xl font-bold text-slate-900 mt-2">React & Modern Stack</h2>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Concept 1: Router -->
-                <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
-                    <h3 class="font-bold text-slate-800 text-lg mb-2">React Router</h3>
-                    <p class="text-xs text-slate-600 mb-3">Client-side routing. Nu reîncarcă pagina (SPA).</p>
-                    <div class="bg-slate-900 text-slate-300 p-3 rounded text-[10px] font-mono">
-                        &lt;Routes&gt;<br>
-                        &nbsp;&nbsp;&lt;Route path="/home" element={&lt;Home /&gt;} /&gt;<br>
-                        &nbsp;&nbsp;&lt;Route path="/admin" element={&lt;Admin /&gt;} /&gt;<br>
-                        &lt;/Routes&gt;
-                    </div>
-                </div>
+        <!-- SECTION 5: Frontend + DevOps + Postgres (2 cards per row + interactive UI) -->
+<section id="frontend" class="scroll-mt-20 pb-20">
+    <div class="border-b border-slate-200 pb-4 mb-6">
+        <span class="text-blue-600 font-bold uppercase tracking-wider text-xs">Modulul 5</span>
+        <h2 class="text-3xl font-bold text-slate-900 mt-2">React, Modern Stack & DevOps Essentials</h2>
+        <p class="text-slate-600 mt-2">Concepte esențiale pentru frontend, DevOps și baze de date moderne, cu exemple de cod și întrebări tip interviu.</p>
+    </div>
 
-                <!-- Concept 2: Props vs State -->
-                <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
-                    <h3 class="font-bold text-slate-800 text-lg mb-2">Props vs State</h3>
-                    <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
-                        <li><strong>Props:</strong> Date primite de la componenta părinte. Sunt <em>read-only</em> (imutabile).</li>
-                        <li><strong>State:</strong> Memoria internă a componentei (`useState`). Când se schimbă, componenta se re-randează.</li>
-                    </ul>
-                </div>
+    <div class="grid md:grid-cols-2 gap-6">
 
-                <!-- Concept 3: Hooks -->
-                <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
-                    <h3 class="font-bold text-slate-800 text-lg mb-2">Hooks</h3>
-                    <p class="text-xs text-slate-600 mb-2">Permit folosirea state-ului în componente funcționale.</p>
-                    <div class="text-xs font-mono bg-slate-50 p-2 rounded">
-                        useEffect(() => { ... }, [])
-                    </div>
-                    <p class="text-[10px] text-slate-500 mt-1">Înlocuiește componentDidMount.</p>
-                </div>
+        <!-- React Router -->
+        <div class="bg-white p-5 rounded-xl shadow-md border border-blue-200 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-2">🧭</div>
+            <h4 class="font-bold text-blue-800 mb-2">React Router (SPA)</h4>
+            <p class="text-sm text-stone-600 mb-2">
+                Client-side routing: navigare fără reload. SPA (Single Page Application).
+            </p>
+            <pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+&lt;Routes&gt;
+  &lt;Route path="/home" element={&lt;Home /&gt;} /&gt;
+  &lt;Route path="/admin" element={&lt;Admin /&gt;} /&gt;
+&lt;/Routes&gt;
+            </pre>
+            <p class="text-xs text-stone-500 mt-1">
+                <strong>Tip interviu:</strong> explică nested routes, protected routes și lazy loading pentru performanță.
+            </p>
+            <p class="text-xs text-rose-600 mt-1">
+                <strong>Întrebare:</strong> „Cum previi re-render inutil în React Router?”  
+                <strong>Răspuns:</strong> folosește <code>React.memo</code>, <code>React.lazy</code> și <code>Suspense</code> pentru componente mari.
+            </p>
+        </div>
 
-                <!-- React Hooks -->
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200 hover-card">
-                    <div class="text-3xl mb-2">⚛️</div>
-                    <h4 class="font-bold text-stone-800">React & Axios</h4>
-                    <ul class="text-sm text-stone-600 list-disc list-inside mt-2 space-y-1">
-                        <li><strong>useEffect:</strong> Înlocuiește lifecycle methods. Folosit pentru data fetching cu Axios.</li>
-                        <li><strong>useState:</strong> Managementul stării locale.</li>
-                        <li><strong>Axios Interceptors:</strong> Atașează automat tokenul JWT la fiecare request.</li>
-                    </ul>
-                </div>
-                <!-- Modern DBs -->
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200 hover-card">
-                    <div class="text-3xl mb-2">☁️</div>
-                    <h4 class="font-bold text-stone-800">Serverless Data</h4>
-                    <ul class="text-sm text-stone-600 list-disc list-inside mt-2 space-y-1">
-                        <li><strong>Neon:</strong> Serverless PostgreSQL. Separă stocarea de procesare. Auto-scaling.</li>
-                        <li><strong>Upstash:</strong> Serverless Redis & Kafka. Pay-per-request. Ideal pentru cache și cozi de mesaje.</li>
-                        <li><strong>Firebase:</strong> Auth & Firestore (Realtime DB).</li>
-                    </ul>
-                </div>
+        <!-- Props vs State -->
+        <div class="bg-white p-5 rounded-xl shadow-md border border-purple-200 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-2">🧩</div>
+            <h4 class="font-bold text-purple-800 mb-2">Props vs State</h4>
+            <ul class="text-sm text-stone-600 list-disc list-inside space-y-1">
+                <li><strong>Props:</strong> Imutabile, date primite de la componenta părinte.</li>
+                <li><strong>State:</strong> Memoria internă a componentei, schimbarea declanșează re-render.</li>
+                <li><strong>Exemplu:</strong>
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+function Counter({ initial }) {
+  const [count, setCount] = useState(initial);
+  return &lt;button onClick={() =&gt; setCount(count + 1)&gt;{count}&lt;/button&gt;;
+}
+</pre>
+                </li>
+                <li><strong>Întrebare interviu:</strong> „De ce props sunt read-only și când ai folosi lifting state up?”  
+                <strong>Răspuns:</strong> Pentru a sincroniza state între componente părinte și copil, eviti duplicarea datelor.
+                </li>
+            </ul>
+        </div>
 
-                <!-- DevOps -->
-                <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200 hover-card">
-                    <div class="text-3xl mb-2">🐳</div>
-                    <h4 class="font-bold text-stone-800">DevOps Basics</h4>
-                    <ul class="text-sm text-stone-600 list-disc list-inside mt-2 space-y-1">
-                        <li><strong>Docker:</strong> Containerizare. "It works on my machine" -> Works everywhere.</li>
-                        <li><strong>NPM:</strong> Node Package Manager. Gestionează dependințele de frontend.</li>
-                        <li><strong>Pub/Sub:</strong> Arhitectură asincronă pentru decuplarea microserviciilor.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        <!-- React Hooks -->
+        <div class="bg-white p-5 rounded-xl shadow-md border border-yellow-200 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-2">⚡</div>
+            <h4 class="font-bold text-yellow-800 mb-2">Hooks: useState & useEffect</h4>
+            <ul class="text-sm text-stone-600 list-disc list-inside space-y-1">
+                <li>useState: starea locală
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+const [text, setText] = useState("");
+</pre>
+                </li>
+                <li>useEffect: lifecycle în componente funcționale
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+useEffect(() =&gt; {
+  console.log("Component mounted");
+  return () =&gt; console.log("Cleanup on unmount");
+}, []);
+</pre>
+                </li>
+                <li><strong>Interviu:</strong> „Ce se întâmplă dacă uiți array-ul de dependențe?” → loop infinit, memory leak</li>
+            </ul>
+        </div>
+
+        <!-- React + Axios + JWT -->
+        <div class="bg-white p-5 rounded-xl shadow-md border border-red-200 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-2">🔒</div>
+            <h4 class="font-bold text-red-800 mb-2">React + Axios + JWT</h4>
+            <ul class="text-sm text-stone-600 list-disc list-inside space-y-1">
+                <li>JWT Stateless Authentication → backend nu ține session</li>
+                <li>Axios Interceptors → injectare token automat
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+axios.interceptors.request.use(config =&gt; {
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+</pre>
+                </li>
+                <li>Întrebare interviu: „Cum securizezi refresh token-urile și accesul la API?”  
+                    <strong>Răspuns:</strong> stochezi refresh token server-side, access token expiră rapid.
+                </li>
+            </ul>
+        </div>
+
+        <!-- Docker -->
+        <div class="bg-white p-5 rounded-xl shadow-md border border-teal-200 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-2">🐳</div>
+            <h4 class="font-bold text-teal-800 mb-2">Docker & DevOps</h4>
+            <ul class="text-sm text-stone-600 list-disc list-inside space-y-1">
+                <li>Containerizare → izolarea aplicațiilor
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+docker build -t my-app .
+docker run -p 8080:8080 my-app
+</pre>
+                </li>
+                <li>docker-compose pentru backend + DB + Redis
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports: - "8080:8080"
+  postgres:
+    image: postgres:15
+    environment: POSTGRES_PASSWORD=secret
+  redis:
+    image: redis:7
+</pre>
+                </li>
+                <li>Întrebare interviu: „Cum scalezi servicii multiple cu Docker?”  
+                    <strong>Răspuns:</strong> folosești multiple replicas + load balancer sau Kubernetes.
+                </li>
+            </ul>
+        </div>
+
+        <!-- PostgreSQL: Essentials -->
+        <div class="bg-white p-5 rounded-xl shadow-md border border-green-200 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-2">🟢</div>
+            <h4 class="font-bold text-green-800 mb-2">PostgreSQL Essentials</h4>
+            <ul class="text-sm text-stone-600 list-disc list-inside space-y-1">
+                <li>ACID → Atomicitate, Consistență, Izolare, Durabilitate</li>
+                <li>JSONB → stocare rapidă și indexabilă
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+SELECT data->>'name' FROM products WHERE data @> '{"category":"electronics"}';
+</pre>
+                </li>
+                <li>Partial Index
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+CREATE INDEX idx_active_products ON products(id)
+WHERE active = true;
+</pre>
+                </li>
+                <li>Full Text Search → tsvector + GIN pentru căutări eficiente</li>
+                <li>Întrebare interviu: „De ce PostgreSQL vs MySQL?”  
+                    <strong>Răspuns:</strong> extensii, JSONB, Partial Index, ACID garantat, tipuri complexe.
+                </li>
+            </ul>
+        </div>
+
+        <!-- PostgreSQL: Indexing & Transactions -->
+        <div class="bg-white p-5 rounded-xl shadow-md border border-indigo-200 hover:shadow-lg transition-all">
+            <div class="text-3xl mb-2">📊</div>
+            <h4 class="font-bold text-indigo-800 mb-2">PostgreSQL Indexing & Transactions</h4>
+            <ul class="text-sm text-stone-600 list-disc list-inside space-y-1">
+                <li>B-Tree → egalitate și sortare scalară</li>
+                <li>GIN → arrays, JSONB, full text search</li>
+                <li>BRIN → mari volume de date, range scan optimizat</li>
+                <li>Transactions → BEGIN / COMMIT / ROLLBACK
+<pre class="bg-slate-100 p-2 text-xs rounded font-mono overflow-x-auto">
+BEGIN;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT;
+</pre>
+                </li>
+                <li>Întrebare interviu: „Cum eviți deadlocks în PostgreSQL?”  
+                    <strong>Răspuns:</strong> tranzacții scurte, indexuri corecte, ordine constantă de UPDATE, folosirea EXPLAIN ANALYZE pentru optimizare.
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
 
         <!-- SECTION 6: Structuri de Date -->
         <section id="structures" class="scroll-mt-20">
