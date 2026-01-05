@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curs Complet: Java & React + Career Prep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc; /* Slate 50 */
+            --text-main: #0f172a; /* Slate 900 */
+            --accent: #2563eb; /* Blue 600 */
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: var(--text-main); }
+        h1, h2, h3, h4 { letter-spacing: -0.02em; }
+        code, pre { font-family: 'JetBrains Mono', monospace; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+        /* Utilities */
+        .chart-wrapper { position: relative; width: 100%; height: 300px; }
+        .tab-btn.active { background-color: #1e293b; color: #fff; border-bottom: 2px solid #3b82f6; }
+        .tab-btn { background-color: #0f172a; color: #94a3b8; border-bottom: 2px solid transparent; }
+        
+        .accordion-content { transition: max-height 0.3s ease-out, opacity 0.3s ease-out; max-height: 0; opacity: 0; overflow: hidden; }
+        .filter-btn.active { ring-width: 2px; ring-offset-width: 2px; ring-color: #94a3b8; border-color: transparent; }
+
+        /* Syntax Highlighting Sim */
+        .code-key { color: #c026d3; font-weight: bold; }
+        .code-str { color: #16a34a; }
+        .code-cls { color: #3b82f6; }
+        .code-annot { color: #eab308; }
+        .code-com { color: #94a3b8; font-style: italic; }
+    </style>
+</head>
+<body class="flex flex-col lg:flex-row min-h-screen">
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden bg-white border-b border-slate-200 p-4 sticky top-0 z-50 flex justify-between items-center shadow-sm">
+        <span class="font-bold text-lg text-slate-800">📘 JavaStack<span class="text-blue-600">Edu</span></span>
+        <button onclick="document.getElementById('sidebar').classList.toggle('hidden')" class="text-slate-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </header>
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="hidden lg:block w-full lg:w-72 bg-white border-r border-slate-200 h-screen sticky top-0 overflow-y-auto z-40 flex-shrink-0">
+        <div class="p-6">
+            <h1 class="text-2xl font-bold text-slate-800 mb-1">Doc<span class="text-blue-600">Tehnică</span></h1>
+            <p class="text-xs text-slate-500 mb-8">Manual Full Stack & Carieră</p>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Concepte Tehnice</h3>
+                    <ul class="space-y-1 text-sm font-medium">
+                        <li><a href="#arch" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">1. Introducere & Arhitectură</a></li>
+                        <li><a href="#backend" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">2. Spring Boot Core (Detaliat)</a></li>
+                        <li><a href="#security" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">3. Security & JWT</a></li>
+                        <li><a href="#data" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">4. Data & Performanță</a></li>
+                        <li><a href="#frontend" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">5. React Ecosystem (Router)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Pregătire Interviu</h3>
+                    <ul class="space-y-1 text-sm font-medium">
+                        <li><a href="#structures" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">6. Structuri de Date</a></li>
+                        <li><a href="#algo" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">7. Algoritmică (Diverse)</a></li>
+                        <li><a href="#interview" class="block px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 hover:text-blue-600 transition">8. Simulator Interviu (50+)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-2">Bonus: Carieră</h3>
+                    <ul class="space-y-1 text-sm font-medium">
+                        <li><a href="#softskills" class="block px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 transition">9. Soft Skills & CV</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 lg:p-10 max-w-5xl mx-auto space-y-16">
+
+        <!-- Intro Hero -->
+        <section class="text-center py-10 bg-white rounded-2xl shadow-sm border border-stone-100">
+            <h2 class="text-3xl font-extrabold text-stone-900 mb-4">Ghid Didactic Complet: De la Junior la Mid-Level</h2>
+            <p class="max-w-3xl mx-auto text-lg text-stone-600 mb-6">
+                Acest dashboard interactiv este conceput pentru a te pregăti pentru interviurile tehnice și pentru provocările reale din producție. 
+                Vom explora arhitectura REST, ecosistemul Spring Boot, optimizarea bazelor de date și integrarea cu React.
+            </p>
+            <div class="flex justify-center gap-4 text-sm text-stone-500">
+                <span class="flex items-center">📦 Spring Boot 3+</span>
+                <span class="flex items-center">⚛️ React 18+</span>
+                <span class="flex items-center">🐘 PostgreSQL</span>
+                <span class="flex items-center">🐳 Docker</span>
+            </div>
+        </section>
+
+        <!-- SECTION 1: Arhitectură -->
+        <section id="arch" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs">Modulul 1</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Arhitectură Software & Design</h2>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm mb-8">
+                <h3 class="font-bold text-slate-800 mb-4">Fluxul Datelor (Request Flow)</h3>
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+                    <!-- Client -->
+                    <div class="flex flex-col items-center w-full md:w-1/5">
+                        <div class="bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-lg w-full text-center">
+                            <strong>Client React</strong><br>Browser / Axios
+                        </div>
+                        <div class="text-slate-400 text-2xl my-2">↓</div>
+                        <div class="text-xs text-slate-500">JSON Request</div>
+                    </div>
+                    
+                    <!-- Controller -->
+                    <div class="flex flex-col items-center w-full md:w-1/5">
+                        <div class="bg-slate-50 border border-slate-200 text-slate-800 p-4 rounded-lg w-full text-center">
+                            <strong>Controller</strong><br>API Layer
+                        </div>
+                        <div class="text-slate-400 text-2xl my-2">↓</div>
+                        <div class="text-xs text-slate-500">Validare DTO</div>
+                    </div>
+
+                    <!-- Service -->
+                    <div class="flex flex-col items-center w-full md:w-1/5">
+                        <div class="bg-orange-50 border border-orange-200 text-orange-900 p-4 rounded-lg w-full text-center shadow-md transform scale-105">
+                            <strong>Service</strong><br>Business Logic
+                        </div>
+                        <div class="text-slate-400 text-2xl my-2">↓</div>
+                        <div class="text-xs text-slate-500">@Transactional</div>
+                    </div>
+
+                    <!-- Repository -->
+                    <div class="flex flex-col items-center w-full md:w-1/5">
+                        <div class="bg-slate-50 border border-slate-200 text-slate-800 p-4 rounded-lg w-full text-center">
+                            <strong>Repository</strong><br>Data Access
+                        </div>
+                        <div class="text-slate-400 text-2xl my-2">↓</div>
+                        <div class="text-xs text-slate-500">Hibernate / JPA</div>
+                    </div>
+
+                    <!-- DB -->
+                    <div class="flex flex-col items-center w-full md:w-1/5">
+                        <div class="bg-slate-800 text-white p-4 rounded-lg w-full text-center">
+                            <strong>PostgreSQL</strong><br>Database
+                        </div>
+                        <div class="text-slate-400 text-2xl my-2">↺</div>
+                        <div class="text-xs text-slate-500">Persistență</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Spring Boot Core -->
+        <section id="backend" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs">Modulul 2</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Spring Boot Core & Clean Code</h2>
+            </div>
+            
+            <p class="text-slate-600 mb-6 text-sm">
+                Analiză detaliată a codului. Comentariile explică conceptele de "Inversion of Control", "Dependency Injection" și "Transaction Management".
+            </p>
+
+            <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg text-sm flex flex-col">
+                <div class="flex bg-slate-800 border-b border-slate-700">
+                    <button onclick="switchTab('controller')" id="btn-controller" class="tab-btn active px-4 py-2">OrderController.java</button>
+                    <button onclick="switchTab('record')" id="btn-record" class="tab-btn px-4 py-2">OrderRequest.java</button>
+                    <button onclick="switchTab('service')" id="btn-service" class="tab-btn px-4 py-2">OrderService.java</button>
+                </div>
+                <div class="p-6 font-mono text-slate-300 overflow-auto flex-1 max-h-[500px]">
+                    
+                    <div id="code-controller">
+<pre>
+<span class="code-com">// 1. @RestController: Spune framework-ului că acest bean gestionează cereri HTTP
+//    și că răspunsul metodelor va fi automat serializat în JSON (via Jackson).</span>
+<span class="code-key">@RestController</span>
+<span class="code-com">// 2. @RequestMapping: Prefixul comun pentru toate endpoint-urile din clasă.</span>
+<span class="code-key">@RequestMapping</span>(<span class="code-str">"/api/orders"</span>)
+<span class="code-key">public class</span> <span class="code-cls">OrderController</span> {
+    
+    <span class="code-com">// Folosim 'final' pentru a garanta imutabilitatea referinței după construcție.</span>
+    <span class="code-key">private final</span> <span class="code-cls">OrderService</span> service;
+
+    <span class="code-com">// 3. Constructor Injection: Modul preferat de Dependency Injection.
+    //    Beneficii: Testabilitate ușoară (poți da un mock în teste unitare),
+    //    asigură că bean-ul nu este creat într-o stare invalidă (fără dependențe).</span>
+    <span class="code-key">public</span> <span class="code-cls">OrderController</span>(<span class="code-cls">OrderService</span> service) { 
+        <span class="code-key">this</span>.service = service; 
+    }
+
+    <span class="code-com">// 4. ResponseEntity&lt;?&gt;: Wrapper HTTP complet (Status, Headers, Body).</span>
+    <span class="code-key">@PostMapping</span>
+    <span class="code-key">public</span> <span class="code-cls">ResponseEntity</span>&lt;<span class="code-cls">OrderResponse</span>&gt; create(
+            <span class="code-com">// 5. @Valid: Declanșează validarea Bean Validation (Hibernate Validator)
+            //    înainte ca metoda să fie executată. Dacă DTO-ul e invalid, 
+            //    Spring aruncă automat MethodArgumentNotValidException -> 400 Bad Request.</span>
+            <span class="code-annot">@Valid @RequestBody</span> <span class="code-cls">OrderRequest</span> req) {
+        
+        <span class="code-cls">OrderResponse</span> response = service.placeOrder(req);
+        <span class="code-com">// Returnăm 200 OK (sau 201 Created) explicit.</span>
+        <span class="code-key">return</span> <span class="code-cls">ResponseEntity</span>.ok(response);
+    }
+}
+</pre>
+                    </div>
+
+                    <div id="code-record" class="hidden">
+<pre>
+<span class="code-com">// Java 17+ Record: 
+// - O clasă specială IMUTABILĂ destinată stocării de date.
+// - Generează automat: constructor, getters (numele câmpului), equals(), hashCode(), toString().
+// - Elimină boilerplate-ul clasic (Lombok nu mai e strict necesar pentru DTO-uri).</span>
+<span class="code-key">public record</span> <span class="code-cls">OrderRequest</span>(
+    
+    <span class="code-com">// Validare: Nu poate fi null.</span>
+    <span class="code-annot">@NotNull</span>(message = <span class="code-str">"User ID is required"</span>)
+    <span class="code-cls">Long</span> userId,
+    
+    <span class="code-com">// Validare: Lista nu poate fi null și trebuie să aibă cel puțin un element.</span>
+    <span class="code-annot">@NotEmpty</span>(message = <span class="code-str">"Cart cannot be empty"</span>)
+    <span class="code-cls">List</span>&lt;<span class="code-cls">OrderItemDto</span>&gt; items,
+    
+    <span class="code-com">// Opțional, poate fi null.</span>
+    <span class="code-cls">String</span> promoCode
+) {}
+</pre>
+                    </div>
+
+                    <div id="code-service" class="hidden">
+<pre>
+<span class="code-com">// @Service: Componentă Spring care conține Logica de Business (Domain Logic).</span>
+<span class="code-key">@Service</span>
+<span class="code-key">public class</span> <span class="code-cls">OrderService</span> {
+    
+    <span class="code-key">private final</span> <span class="code-cls">ProductRepository</span> productRepo;
+    <span class="code-key">private final</span> <span class="code-cls">OrderRepository</span> orderRepo;
+
+    <span class="code-com">// ACID - Atomicity, Consistency, Isolation, Durability.
+    // @Transactional: 
+    // 1. Deschide o tranzacție la începutul metodei.
+    // 2. Face Commit la final dacă nu apar erori.
+    // 3. Face ROLLBACK automat dacă apare o RuntimeException (ex: stoc insuficient).</span>
+    <span class="code-annot">@Transactional</span>
+    <span class="code-key">public</span> <span class="code-cls">OrderResponse</span> placeOrder(<span class="code-cls">OrderRequest</span> req) {
+        
+        <span class="code-com">// Pas 1: Transformare DTO -> Entitate</span>
+        <span class="code-cls">Order</span> order = mapper.toEntity(req);
+        
+        <span class="code-com">// Pas 2: Salvare comandă (Write operation)</span>
+        orderRepo.save(order);
+        
+        <span class="code-com">// Pas 3: Scădere stoc. 
+        // Dacă metoda decreaseStock aruncă 'InsufficientStockException',
+        // tranzacția se anulează, iar 'orderRepo.save' de mai sus este șters (Rollback).</span>
+        productRepo.decreaseStock(req.items());
+        
+        <span class="code-key">return</span> mapper.toDto(order);
+    }
+}
+</pre>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Core Concepts (Spring & HTTP) -->
+        <section id="spring-core" class="scroll-mt-20">
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-stone-800 flex items-center">
+                    <span class="bg-stone-200 text-stone-600 p-2 rounded-lg mr-3 text-xl">2</span>
+                    Concepte Fundamentale: HTTP & Spring Boot
+                </h3>
+                <p class="mt-2 text-stone-600">
+                    Înțelegerea protocolului HTTP și a containerului IoC (Inversion of Control) din Spring este obligatorie. 
+                    Mai jos sunt comparații interactive esențiale.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- PUT vs PATCH -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card">
+                    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">HTTP: PUT vs PATCH</h4>
+                    <p class="text-sm text-stone-600 mb-4">Selectează o metodă pentru a vedea cum afectează resursa de mai jos.</p>
+                    
+                    <div class="bg-stone-100 p-3 rounded mb-4 font-mono text-xs">
+                        <div>Resursă Originală (ID: 1):</div>
+                        <div id="resource-display" class="text-blue-700">{ "nume": "Ion", "varsta": 25, "oras": "Cluj" }</div>
+                    </div>
+
+                    <div class="flex gap-2 mb-4">
+                        <button onclick="simulateHttp('PUT')" class="flex-1 bg-blue-100 text-blue-800 px-3 py-1 rounded hover:bg-blue-200 text-sm font-semibold">PUT { "nume": "Ana" }</button>
+                        <button onclick="simulateHttp('PATCH')" class="flex-1 bg-green-100 text-green-800 px-3 py-1 rounded hover:bg-green-200 text-sm font-semibold">PATCH { "nume": "Ana" }</button>
+                    </div>
+                    <div id="http-result" class="text-sm italic text-stone-500 min-h-[40px]">Apasă un buton...</div>
+                </div>
+
+                <!-- @Component vs @Bean -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card">
+                    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">Spring: @Component vs @Bean</h4>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded mr-3 text-xl">🧩</div>
+                            <div>
+                                <strong class="text-purple-900">@Component</strong>
+                                <p class="text-stone-600">Se pune pe <strong>clasele tale</strong>. Spring le scanează automat (Component Scanning) și le instanțiază. Ex: @Service, @Controller, @Repository sunt specializări ale @Component.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 p-2 rounded mr-3 text-xl">⚙️</div>
+                            <div>
+                                <strong class="text-yellow-900">@Bean</strong>
+                                <p class="text-stone-600">Se pune pe <strong>metode</strong> într-o clasă @Configuration. Se folosește când vrei să instanțiezi o clasă dintr-o <strong>librărie externă</strong> (pe care nu poți pune @Component) sau când ai nevoie de logică complexă de configurare.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HTTP Status Codes -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 md:col-span-2">
+                    <h4 class="font-bold text-lg mb-4 text-stone-800">HTTP Status Codes Cheat Sheet</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-2 text-center text-sm">
+                        <div class="p-2 bg-green-100 text-green-800 rounded">
+                            <div class="font-bold">200 OK</div>
+                            <div class="text-xs opacity-75">Succes standard</div>
+                        </div>
+                        <div class="p-2 bg-green-100 text-green-800 rounded">
+                            <div class="font-bold">201 Created</div>
+                            <div class="text-xs opacity-75">După POST</div>
+                        </div>
+                        <div class="p-2 bg-yellow-100 text-yellow-800 rounded">
+                            <div class="font-bold">400 Bad Req</div>
+                            <div class="text-xs opacity-75">Validare eșuată</div>
+                        </div>
+                        <div class="p-2 bg-yellow-100 text-yellow-800 rounded">
+                            <div class="font-bold">401 Unauth</div>
+                            <div class="text-xs opacity-75">Lipsește Token</div>
+                        </div>
+                        <div class="p-2 bg-yellow-100 text-yellow-800 rounded">
+                            <div class="font-bold">403 Forbidden</div>
+                            <div class="text-xs opacity-75">Token valid, rol greșit</div>
+                        </div>
+                        <div class="p-2 bg-stone-100 text-stone-800 rounded">
+                            <div class="font-bold">404 Not Found</div>
+                            <div class="text-xs opacity-75">Resursa nu există</div>
+                        </div>
+                        <div class="p-2 bg-red-100 text-red-800 rounded">
+                            <div class="font-bold">500 Server Err</div>
+                            <div class="text-xs opacity-75">Bug în codul tău</div>
+                        </div>
+                        <div class="p-2 bg-red-100 text-red-800 rounded">
+                            <div class="font-bold">503 Unavailable</div>
+                            <div class="text-xs opacity-75">Server overload</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Security -->
+        <section id="security" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs">Modulul 3</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Securitate: JWT & Stateless</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold text-slate-800 text-lg mb-3">Concepte Cheie</h3>
+                    <p class="text-slate-600 mb-4 text-sm">
+                        Securitatea într-un REST API modern se bazează pe principiul <strong>Stateless</strong>. Nu folosim `HttpSession` pe server.
+                    </p>
+                    <ul class="list-disc list-inside text-slate-600 space-y-2 text-sm">
+                        <li><strong>JWT (JSON Web Token):</strong> "Biletul" de acces. Conține ID-ul userului și Rolurile, semnate criptografic.</li>
+                        <li><strong>BCrypt:</strong> Algoritm de hashing pentru parole. Include "Salt" automat pentru a preveni atacurile Rainbow Table.</li>
+                        <li><strong>CORS:</strong> Mecanism prin care backend-ul permite frontend-ului (de pe alt domeniu/port) să acceseze resursele.</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 text-sm">
+                    <h3 class="font-bold text-blue-900 text-lg mb-3">Auth Flow</h3>
+                    <ol class="list-decimal list-inside text-blue-800 space-y-3">
+                        <li>Client trimite <code>POST /login</code>.</li>
+                        <li>Server verifică parola hash-uită.</li>
+                        <li>Server generează Token-ul (valabil 15 min).</li>
+                        <li>Client primește Token-ul și îl salvează (ex: localStorage).</li>
+                        <li>Client trimite headerul <code>Authorization: Bearer xyz...</code> la fiecare request.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Data & Performance -->
+        <section id="data" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs">Modulul 4</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Data, Optimizare & Performanță</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col">
+                    <h4 class="font-bold text-slate-700 mb-2 text-sm">Scalability Curve: "The Knee"</h4>
+                    <div class="flex-1 relative min-h-[250px]">
+                        <canvas id="perfChart"></canvas>
+                    </div>
+                    <p><strong>Observație:</strong> Până la "Punctul de Saturație" (genunchiul curbei), throughput-ul crește liniar și latența e stabilă. După saturație, latența explodează exponențial (cozi de așteptare), iar throughput-ul se plafonează sau scade.</p>
+
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded border border-slate-200">
+                        <div class="text-2xl mb-2">🐘</div>
+                        <h4 class="font-bold text-slate-800 text-sm">Database Indexing</h4>
+                        <p class="text-xs text-slate-600 mt-1">
+                            <strong>B-Tree:</strong> Standard pentru egalitate/range.<br>
+                            <strong>Partial Index:</strong> <code>WHERE active = true</code> (Index mic și rapid).
+                        </p>
+                    </div>
+                    <!-- SQL vs NoSQL -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200">
+                        <h4 class="font-bold text-stone-800 mb-2">SQL vs NoSQL</h4>
+                        <div class="text-sm space-y-3">
+                            <div class="border-l-4 border-blue-500 pl-3">
+                                <strong class="block text-blue-700">PostgreSQL (SQL)</strong>
+                                Relațional, ACID, Schema strictă. Ideal pentru date financiare, relații complexe (JOINs).
+                            </div>
+                            <div class="border-l-4 border-green-500 pl-3">
+                                <strong class="block text-green-700">MongoDB / Firebase (NoSQL)</strong>
+                                Document-based, Schema flexibilă. Ideal pentru cataloage de produse, date nestructurate, rapid prototyping.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Caching -->
+                    <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200">
+                        <h4 class="font-bold text-stone-800 mb-2">Caching (Redis)</h4>
+                        <p class="text-sm text-stone-600 mb-3">
+                            <strong>@Cacheable:</strong> Cache-aside pattern. Dacă datele sunt în Redis, le returnează instant. Dacă nu, execută metoda și salvează în Redis.
+                        </p>
+                        <div class="flex items-center justify-between text-xs font-mono bg-stone-900 text-green-400 p-2 rounded">
+                            <span>Redis GET user:1</span>
+                            <span>0.5ms ⚡</span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs font-mono bg-stone-800 text-stone-400 p-2 rounded mt-1">
+                            <span>Postgres SELECT</span>
+                            <span>15.0ms 🐢</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Frontend -->
+        <section id="frontend" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-blue-600 font-bold uppercase tracking-wider text-xs">Modulul 5</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">React & Modern Stack</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Concept 1: Router -->
+                <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">React Router</h3>
+                    <p class="text-xs text-slate-600 mb-3">Client-side routing. Nu reîncarcă pagina (SPA).</p>
+                    <div class="bg-slate-900 text-slate-300 p-3 rounded text-[10px] font-mono">
+                        &lt;Routes&gt;<br>
+                        &nbsp;&nbsp;&lt;Route path="/home" element={&lt;Home /&gt;} /&gt;<br>
+                        &nbsp;&nbsp;&lt;Route path="/admin" element={&lt;Admin /&gt;} /&gt;<br>
+                        &lt;/Routes&gt;
+                    </div>
+                </div>
+
+                <!-- Concept 2: Props vs State -->
+                <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">Props vs State</h3>
+                    <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+                        <li><strong>Props:</strong> Date primite de la componenta părinte. Sunt <em>read-only</em> (imutabile).</li>
+                        <li><strong>State:</strong> Memoria internă a componentei (`useState`). Când se schimbă, componenta se re-randează.</li>
+                    </ul>
+                </div>
+
+                <!-- Concept 3: Hooks -->
+                <div class="bg-white border border-slate-200 p-5 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-lg mb-2">Hooks</h3>
+                    <p class="text-xs text-slate-600 mb-2">Permit folosirea state-ului în componente funcționale.</p>
+                    <div class="text-xs font-mono bg-slate-50 p-2 rounded">
+                        useEffect(() => { ... }, [])
+                    </div>
+                    <p class="text-[10px] text-slate-500 mt-1">Înlocuiește componentDidMount.</p>
+                </div>
+
+                <!-- React Hooks -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200 hover-card">
+                    <div class="text-3xl mb-2">⚛️</div>
+                    <h4 class="font-bold text-stone-800">React & Axios</h4>
+                    <ul class="text-sm text-stone-600 list-disc list-inside mt-2 space-y-1">
+                        <li><strong>useEffect:</strong> Înlocuiește lifecycle methods. Folosit pentru data fetching cu Axios.</li>
+                        <li><strong>useState:</strong> Managementul stării locale.</li>
+                        <li><strong>Axios Interceptors:</strong> Atașează automat tokenul JWT la fiecare request.</li>
+                    </ul>
+                </div>
+                <!-- Modern DBs -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200 hover-card">
+                    <div class="text-3xl mb-2">☁️</div>
+                    <h4 class="font-bold text-stone-800">Serverless Data</h4>
+                    <ul class="text-sm text-stone-600 list-disc list-inside mt-2 space-y-1">
+                        <li><strong>Neon:</strong> Serverless PostgreSQL. Separă stocarea de procesare. Auto-scaling.</li>
+                        <li><strong>Upstash:</strong> Serverless Redis & Kafka. Pay-per-request. Ideal pentru cache și cozi de mesaje.</li>
+                        <li><strong>Firebase:</strong> Auth & Firestore (Realtime DB).</li>
+                    </ul>
+                </div>
+
+                <!-- DevOps -->
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-stone-200 hover-card">
+                    <div class="text-3xl mb-2">🐳</div>
+                    <h4 class="font-bold text-stone-800">DevOps Basics</h4>
+                    <ul class="text-sm text-stone-600 list-disc list-inside mt-2 space-y-1">
+                        <li><strong>Docker:</strong> Containerizare. "It works on my machine" -> Works everywhere.</li>
+                        <li><strong>NPM:</strong> Node Package Manager. Gestionează dependințele de frontend.</li>
+                        <li><strong>Pub/Sub:</strong> Arhitectură asincronă pentru decuplarea microserviciilor.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Structuri de Date -->
+        <section id="structures" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-purple-600 font-bold uppercase tracking-wider text-xs">Modulul 6</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Structuri de Date (Deep Dive)</h2>
+                <p class="text-slate-600 mt-2">Analiză comparativă pentru interviurile tehnice.</p>
+            </div>
+
+            <div class="overflow-x-auto rounded-lg border border-slate-200 shadow-sm">
+                <table class="w-full text-sm text-left text-slate-600 bg-white">
+                    <thead class="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="px-6 py-3">Structură</th>
+                            <th class="px-6 py-3 w-1/3">Implementare Internă</th>
+                            <th class="px-6 py-3">Complexitate (Search/Add)</th>
+                            <th class="px-6 py-3 w-1/3">Când să folosești?</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-bold text-blue-700 font-mono">ArrayList</td>
+                            <td class="px-6 py-4">Array redimensionabil (crește cu 50% când e plin).</td>
+                            <td class="px-6 py-4">Get: <span class="text-green-600 font-bold">O(1)</span> / Add: <span class="text-green-600 font-bold">O(1)*</span></td>
+                            <td class="px-6 py-4">Acces rapid prin index. Iterare frecventă. Ștergeri lente.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-bold text-blue-700 font-mono">LinkedList</td>
+                            <td class="px-6 py-4">Noduri dublu înlănțuite (pointeri prev/next).</td>
+                            <td class="px-6 py-4">Get: <span class="text-red-500 font-bold">O(n)</span> / Add: <span class="text-green-600 font-bold">O(1)</span></td>
+                            <td class="px-6 py-4">Inserări/Ștergeri frecvente la capete (Queue/Deque).</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-bold text-purple-700 font-mono">HashMap</td>
+                            <td class="px-6 py-4">Buckets Array. Coliziuni rezolvate prin LinkedList -> Red-Black Tree (Java 8+).</td>
+                            <td class="px-6 py-4">Avg: <span class="text-green-600 font-bold">O(1)</span> / Worst: O(log n)</td>
+                            <td class="px-6 py-4">Key-Value lookup. Nu păstrează ordinea.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-bold text-purple-700 font-mono">TreeMap</td>
+                            <td class="px-6 py-4">Red-Black Tree (Arbore binar echilibrat).</td>
+                            <td class="px-6 py-4">All: <span class="text-yellow-600 font-bold">O(log n)</span></td>
+                            <td class="px-6 py-4">Chei sortate natural. Range queries.</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50">
+                            <td class="px-6 py-4 font-bold text-green-700 font-mono">HashSet</td>
+                            <td class="px-6 py-4">Folosește un <code>HashMap</code> intern unde valoarea e o constantă.</td>
+                            <td class="px-6 py-4">Avg: <span class="text-green-600 font-bold">O(1)</span></td>
+                            <td class="px-6 py-4">Elemente unice. Verificare rapidă de apartenență.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 7: Algoritmică -->
+        <section id="algo" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-purple-600 font-bold uppercase tracking-wider text-xs">Modulul 7</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Algoritmică & Interviu Coding</h2>
+                <p class="text-slate-600 mt-2">7 Tipuri de probleme esențiale. Soluțiile sunt în dropdown.</p>
+            </div>
+
+            <div class="grid gap-6">
+                
+                <!-- Algo 1: Stack -->
+                <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">1. Reverse Polish Notation (RPN)</h4>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">Stack • O(n)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Se dă o expresie aritmetică în <strong>Reverse Polish Notation</strong>, reprezentată ca un array de string-uri, cu numere întregi și operatorii <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>. Scopul este să evaluezi expresia și să returnezi rezultatul numeric. Exemplu: <code>["2", "1", "+", "3", "*"]</code> corespunde expresiei infix <code>(2 + 1) * 3</code> și rezultatul este <strong>9</strong>. Evaluează expresia: `["2", "1", "+", "3", "*"]` -> `(2+1)*3` = 9.</p>
+                    <details class="group bg-slate-50 rounded border border-slate-200">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-blue-600 hover:bg-slate-100">
+                            <span>Vezi Soluția</span>
+                        </summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto">
+<pre class="text-xs font-mono text-slate-300">
+public int evalRPN(String[] tokens) {
+    Stack&lt;Integer&gt; stack = new Stack&lt;&gt;();
+    for (String t : tokens) {
+        if ("+-*/".contains(t)) {
+            int b = stack.pop(), a = stack.pop();
+            switch (t) {
+                case "+" -> stack.push(a + b);
+                case "-" -> stack.push(a - b);
+                // ...
+            }
+        } else stack.push(Integer.parseInt(t));
+    }
+    return stack.pop();
+}
+</pre>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Algo 2: Dynamic Programming & Binary Search -->
+                <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">2. Longest Increasing Subsequence (LIS)</h4>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">DP & Binary Search</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Se dă un array de numere întregi. Trebuie să găsești lungimea celui mai lung subșir <strong>strict crescător</strong>. Elementele subșirului nu trebuie să fie consecutive în array, dar ordinea trebuie păstrată.
+   Exemplu: <code>[10, 9, 2, 5, 3, 7, 101, 18]</code> → cel mai lung subșir crescător este <code>[2, 3, 7, 101]</code> și lungimea sa este <strong>4</strong>.</p>
+                    
+                    <details class="group bg-slate-50 rounded border border-slate-200 mb-2">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-blue-600 hover:bg-slate-100">Soluție 1: Dynamic Programming O(n²)</summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto"><pre class="text-xs font-mono text-slate-300">public int lengthOfLIS(int[] nums) {
+    int[] dp = new int[nums.length];
+    Arrays.fill(dp, 1);
+    int max = 1;
+    for(int i=1; i&lt;nums.length; i++) {
+        for(int j=0; j&lt;i; j++) {
+            if(nums[i] > nums[j]) dp[i] = Math.max(dp[i], dp[j]+1);
+        }
+        max = Math.max(max, dp[i]);
+    }
+    return max;
+}</pre></div>
+                    </details>
+
+                    <details class="group bg-slate-50 rounded border border-slate-200">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-purple-600 hover:bg-slate-100">Soluție 2: Binary Search O(n log n)</summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto"><pre class="text-xs font-mono text-slate-300">public int lengthOfLIS(int[] nums) {
+    int[] tails = new int[nums.length];
+    int size = 0;
+    for (int x : nums) {
+        int i = 0, j = size;
+        while (i != j) {
+            int m = (i + j) / 2;
+            if (tails[m] < x) i = m + 1;
+            else j = m;
+        }
+        tails[i] = x;
+        if (i == size) ++size;
+    }
+    return size;
+}</pre></div>
+                    </details>
+                </div>
+
+                <!-- Algo 3: Sliding Window -->
+                <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">3. Longest Substring Without Repeating Characters</h4>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">Sliding Window • O(n)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Se dă un string. Trebuie să găsești lungimea maximă a unui <strong>substring</strong> care conține doar caractere <strong>unice</strong>. Exemplu: <code>"abcabcbb"</code> → cel mai lung substring fără caractere repetate este <code>"abc"</code> și lungimea sa este <strong>3</strong>.</p>
+                    <details class="group bg-slate-50 rounded border border-slate-200">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-blue-600 hover:bg-slate-100">
+                            <span>Vezi Soluția</span>
+                        </summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto">
+<pre class="text-xs font-mono text-slate-300">
+public int lengthOfLongestSubstring(String s) {
+    int max = 0, left = 0;
+    Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+    
+    for (int right = 0; right < s.length(); right++) {
+        char c = s.charAt(right);
+        if (map.containsKey(c)) {
+            left = Math.max(left, map.get(c) + 1);
+        }
+        map.put(c, right);
+        max = Math.max(max, right - left + 1);
+    }
+    return max;
+}
+</pre>
+                        </div>
+                    </details>
+                </div>
+
+                <!-- Algo 4: Graph DFS -->
+                <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">4. Number of Islands</h4>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">Grid DFS • O(m*n)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Se dă un grid 2D format din caractere <code>'1'</code> (pământ) și <code>'0'</code> (apă). Trebuie să numeri câte <strong>insule</strong> există în grid. O insulă este o grupare de celule cu <code>'1'</code> conectate <strong>orizontal sau vertical</strong>.Exemplu:
+                      <pre>
+                    grid = [
+                      ["1","1","0","0","0"],
+                      ["1","1","0","0","0"],
+                      ["0","0","1","0","0"],
+                      ["0","0","0","1","1"]
+                    ]
+                    </pre>
+                    Rezultat: <strong>3</strong> insule.</p>
+                    <details class="group bg-slate-50 rounded border border-slate-200">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-blue-600 hover:bg-slate-100">
+                            <span>Vezi Soluția</span>
+                        </summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto">
+<pre class="text-xs font-mono text-slate-300">
+public int numIslands(char[][] grid) {
+    int count = 0;
+    for (int i = 0; i < grid.length; i++) {
+        for (int j = 0; j < grid[0].length; j++) {
+            if (grid[i][j] == '1') {
+                dfs(grid, i, j);
+                count++;
+            }
+        }
+    }
+    return count;
+}
+private void dfs(char[][] grid, int i, int j) {
+    if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != '1') return;
+    grid[i][j] = '0'; // Mark as visited
+    dfs(grid, i+1, j); dfs(grid, i-1, j);
+    dfs(grid, i, j+1); dfs(grid, i, j-1);
+}
+</pre>
+                        </div>
+                    </details>
+                </div>
+<!-- 5. Merge Intervals -->
+                <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">5. Merge Intervals</h4>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">Sorting • O(n log n)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Se dă un array de intervale <code>[start, end]</code>. Trebuie să <strong>combini toate intervalele care se suprapun</strong> și să returnezi un array cu intervalele unite. Exemplu:
+                      <pre>
+                    intervals = [[1,3],[2,6],[8,10],[15,18]]
+                    Rezultat: [[1,6],[8,10],[15,18]]
+                    </pre>
+                    Explicație: Intervalele [1,3] și [2,6] se suprapun, deci se combină în [1,6].</p>
+                    <details class="group bg-slate-50 rounded border border-slate-200">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-blue-600">Soluție</summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto"><pre class="text-xs font-mono text-slate-300">public int[][] merge(int[][] intervals) {
+    Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+    LinkedList&lt;int[]&gt; merged = new LinkedList&lt;&gt;();
+    for (int[] interval : intervals) {
+        if (merged.isEmpty() || merged.getLast()[1] < interval[0])
+            merged.add(interval);
+        else
+            merged.getLast()[1] = Math.max(merged.getLast()[1], interval[1]);
+    }
+    return merged.toArray(new int[merged.size()][]);
+}</pre></div>
+                    </details>
+                </div>
+
+                <!-- 6. Invert Binary Tree -->
+                <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">6. Invert Binary Tree</h4>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">Recursion • O(n)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4"> Se dă un arbore binar. Trebuie să <strong>inversezi toate nodurile</strong>, astfel încât subarborele stâng să devină drept și subarborele drept să devină stâng la fiecare nod.
+                      Exemplu:
+                    <pre>
+                    Input:       4
+                               /   \
+                              2     7
+                             / \   / \
+                            1   3 6   9
+
+                    Output:      4
+                               /   \
+                              7     2
+                             / \   / \
+                            9   6 3   1
+                    </pre>
+                    Toate nodurile stânga/dreapta sunt inversate recursiv.</p>
+                    <details class="group bg-slate-50 rounded border border-slate-200">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-blue-600">Soluție</summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto"><pre class="text-xs font-mono text-slate-300">public TreeNode invertTree(TreeNode root) {
+    if (root == null) return null;
+    TreeNode temp = root.left;
+    root.left = invertTree(root.right);
+    root.right = invertTree(temp);
+    return root;
+}</pre></div>
+                    </details>
+                </div>
+
+                <!-- 7. Top K Frequent -->
+                <div class="bg-white border border-slate-200 rounded-lg p-5 shadow-sm">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="font-bold text-slate-800">7. Top K Frequent Elements</h4>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded font-mono">Heap • O(n log k)</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Se dă un array de numere și un număr <code>k</code>. Trebuie să găsești cele <strong>k elemente cu cea mai mare frecvență</strong> din array.
+                      Exemplu:
+                      <pre>
+                    nums = [1,1,1,2,2,3], k = 2
+                    Rezultat: [1,2]
+                    </pre>
+                    Explicație: 1 apare de 3 ori, 2 apare de 2 ori, iar 3 apare o singură dată. Cele mai frecvente 2 elemente sunt [1,2].</p>
+                    <details class="group bg-slate-50 rounded border border-slate-200">
+                        <summary class="flex items-center gap-2 cursor-pointer p-3 text-sm font-semibold text-blue-600">Soluție</summary>
+                        <div class="p-4 border-t border-slate-200 bg-slate-900 overflow-x-auto"><pre class="text-xs font-mono text-slate-300">public int[] topKFrequent(int[] nums, int k) {
+    Map&lt;Integer, Integer&gt; count = new HashMap&lt;&gt;();
+    for (int n : nums) count.put(n, count.getOrDefault(n, 0) + 1);
+    
+    PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;((a, b) -> count.get(a) - count.get(b));
+    for (int n : count.keySet()) {
+        heap.add(n);
+        if (heap.size() > k) heap.poll();
+    }
+    return heap.stream().mapToInt(i -> i).toArray();
+}</pre></div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: Simulator Interviu -->
+        <section id="interview" class="scroll-mt-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-purple-600 font-bold uppercase tracking-wider text-xs">Modulul 8</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Simulator Interviu (50+)</h2>
+            </div>
+            
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button onclick="filterQuiz('all')" class="filter-btn active px-3 py-1.5 rounded-full border border-slate-300 bg-slate-800 text-white text-xs font-semibold hover:bg-slate-700 transition">Toate</button>
+                <button onclick="filterQuiz('Junior')" class="filter-btn px-3 py-1.5 rounded-full border border-green-200 bg-green-50 text-green-700 text-xs font-semibold hover:bg-green-100 transition">Junior 🌱</button>
+                <button onclick="filterQuiz('Middle')" class="filter-btn px-3 py-1.5 rounded-full border border-blue-200 bg-blue-50 text-blue-700 text-xs font-semibold hover:bg-blue-100 transition">Middle 👨‍💻</button>
+                <button onclick="filterQuiz('Senior')" class="filter-btn px-3 py-1.5 rounded-full border border-purple-200 bg-purple-50 text-purple-700 text-xs font-semibold hover:bg-purple-100 transition">Senior 🚀</button>
+            </div>
+
+            <div class="space-y-3" id="quiz-container">
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION 9: Soft Skills & Career (NEW) -->
+        <section id="softskills" class="scroll-mt-20 pb-20">
+            <div class="border-b border-slate-200 pb-4 mb-6">
+                <span class="text-emerald-600 font-bold uppercase tracking-wider text-xs">Modulul 9</span>
+                <h2 class="text-3xl font-bold text-slate-900 mt-2">Soft Skills & Cariera</h2>
+                <p class="text-slate-600 mt-2">Cum să treci de interviul HR și tehnic.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Prezentare Proiect -->
+                <div class="bg-white border-l-4 border-emerald-500 shadow-sm p-6 rounded-r-lg">
+                    <h3 class="font-bold text-slate-800 text-lg mb-4">Cum prezinți Proiectul?</h3>
+                    <p class="text-sm text-slate-600 mb-4">Nu spune doar "am făcut un magazin". Folosește structura:</p>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li><strong>1. Problema:</strong> "Am vrut să rezolv problema scalabilității într-un sistem e-commerce cu mii de produse."</li>
+                        <li><strong>2. Soluția:</strong> "Am construit o aplicație Cloud-Native cu arhitectură stratificată."</li>
+                        <li><strong>3. Tehnologii:</strong> "Backend Spring Boot pentru robustețe, React pentru interactivitate, PostgreSQL pentru date relaționale și Redis pentru caching."</li>
+                        <li><strong>4. Arhitectură:</strong> "Am folosit Clean Code, principii SOLID și N-Tier Architecture. Securitatea este asigurată prin JWT Stateless."</li>
+                    </ul>
+                </div>
+
+                <!-- Structura CV -->
+                <div class="bg-white border-l-4 border-blue-500 shadow-sm p-6 rounded-r-lg">
+                    <h3 class="font-bold text-slate-800 text-lg mb-4">Structura CV-ului Tehnic</h3>
+                    <ul class="space-y-3 text-sm text-slate-700">
+                        <li><strong>Header:</strong> Nume, Link GitHub, Link LinkedIn (obligatoriu).</li>
+                        <li><strong>Skills:</strong> Grupează-le: <em>Languages (Java, JS), Frameworks (Spring, React), Tools (Docker, Git, AWS)</em>.</li>
+                        <li><strong>Projects (CRUCIAL):</strong>
+                            <div class="bg-slate-50 p-2 mt-1 rounded border border-slate-200 text-xs italic">
+                                "E-Shop Full Stack | Java, React, Docker"<br>
+                                - Implementat sistem de autentificare JWT Stateless.<br>
+                                - Optimizat interogările SQL cu Partial Index (viteză +40%).<br>
+                                - Integrat Redis Cache pentru a reduce load-ul pe DB.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JS Logic -->
+    <script>
+        // --- Code Switcher ---
+        function switchTab(tab) {
+            const tabs = ['controller', 'record', 'service'];
+            tabs.forEach(t => {
+                document.getElementById(`code-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).classList.remove('active');
+            });
+            
+            document.getElementById(`code-${tab}`).classList.remove('hidden');
+            document.getElementById(`btn-${tab}`).classList.add('active');
+        }
+
+        // --- Chart.js ---
+        let chart;
+        function initChart() {
+            const canvas = document.getElementById('perfChart');
+            if(chart) chart.destroy();
+            
+            chart = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: [0, 50, 100, 150, 200, 250],
+                    datasets: [{
+                        label: 'Latență (ms)',
+                        data: [10, 12, 15, 20, 200, 1500],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Throughput (Req/sec)',
+                        data: [0, 500, 1000, 1500, 1800, 1750],
+                        borderColor: '#22c55e',
+                        backgroundColor: 'rgba(34, 197, 94, 0.0)',
+                        tension: 0.4,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { title: {display: true, text: 'Latency (ms)'} },
+                        y1: { position: 'right', grid: {drawOnChartArea: false}, title: {display: true, text: 'Throughput'} }
+                    }
+                }
+            });
+        }
+
+        // --- 1. Code Tab Switcher ---
+        function switchCodeTab(tabName) {
+            // Hide all code blocks
+            document.getElementById('code-controller').classList.add('hidden');
+            document.getElementById('code-service').classList.add('hidden');
+            document.getElementById('code-repo').classList.add('hidden');
+            
+            // Show selected code block
+            document.getElementById(`code-${tabName}`).classList.remove('hidden');
+
+            // Reset tab styles
+            ['controller', 'service', 'repo'].forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                if (t === tabName) {
+                    el.classList.add('active-tab');
+                    el.classList.remove('inactive-tab');
+                } else {
+                    el.classList.add('inactive-tab');
+                    el.classList.remove('active-tab');
+                }
+            });
+        }
+
+        // --- 2. PUT vs PATCH Simulation ---
+        function simulateHttp(method) {
+            const resultDiv = document.getElementById('http-result');
+            const resourceDiv = document.getElementById('resource-display');
+            
+            if (method === 'PUT') {
+                resultDiv.innerHTML = `<span class="text-blue-600 font-bold">PUT (Replace):</span> Întreaga resursă este înlocuită. Câmpurile "varsta" și "oras" dispar pentru că nu au fost trimise în request.`;
+                resourceDiv.innerHTML = `{ "nume": "Ana" } <span class="text-red-500 text-xs">(Pierdere date!)</span>`;
+            } else {
+                resultDiv.innerHTML = `<span class="text-green-600 font-bold">PATCH (Partial Update):</span> Doar câmpul "nume" este actualizat. Restul datelor rămân intacte.`;
+                resourceDiv.innerHTML = `{ "nume": "Ana", "varsta": 25, "oras": "Cluj" }`;
+            }
+        }
+
+        // --- INTERVIEW QUESTION BANK ---
+        const questionBank = [
+            // JAVA JUNIOR
+            { l: "Junior", c: "Java", q: "Care este diferența dintre `==` și `equals()`?", a: "`==` compară referințele din memorie (adresele). `equals()` compară conținutul obiectelor (dacă metoda este suprascrisă corect, ca la String)." },
+            { l: "Junior", c: "Java", q: "Ce este un Java Record și când îl folosim?", a: "Introdus în Java 16, este o clasă imutabilă pentru stocarea datelor. Generează automat constructor, getters, equals, hashCode și toString. Ideal pentru DTO-uri." },
+            { l: "Junior", c: "Java", q: "De ce String este imutabil în Java?", a: "Pentru securitate, thread-safety și optimizare (String Pool). Odată creat, valoarea nu poate fi schimbată." },
+            { l: "Junior", c: "Java", q: "Diferența dintre Interfață și Clasă Abstractă?", a: "O clasă poate implementa multiple interfețe (contracte), dar poate extinde o singură clasă abstractă (ierarhie). Interfețele au metode `default`." },
+            { l: "Junior", c: "Java", q: "Ce înseamnă keyword-ul `static`?", a: "Membrii statici aparțin clasei, nu instanțelor. Sunt partajați între toate obiectele și pot fi accesați fără instanțiere." },
+              { l: "Junior",
+                c: "Java",
+                q: "Ce se întâmplă dacă modifici un obiect folosit ca key într-un HashMap?",
+                a: "HashMap-ul nu va mai putea găsi cheia deoarece hashCode-ul se schimbă, ducând la comportament incorect."
+              },
+              {
+                l: "Junior",
+                c: "Java",
+                q: "De ce preferăm composition în loc de inheritance?",
+                a: "Composition oferă flexibilitate mai mare și evită dependențele rigide și fragile ale ierarhiilor de moștenire."
+              },
+            // JAVA MID
+            { l: "Middle", c: "Java", q: "Cum funcționează HashMap intern (Java 8+)?", a: "Folosește un array de 'buckets'. HashCode-ul cheii determină indexul. Dacă apar coliziuni (același bucket), se folosește LinkedList. Dacă lista depășește 8 elemente, devine Red-Black Tree (O(log n))." },
+            { l: "Middle", c: "Java", q: "Ce sunt Virtual Threads (Project Loom)?", a: "Thread-uri ușoare gestionate de JVM, nu de OS. Permit milioane de thread-uri simultane, rezolvând problema scalabilității I/O fără complexitatea Reactive Programming." },
+            { l: "Middle", c: "Java", q: "Checked vs Unchecked Exceptions?", a: "Checked (Exception) trebuie tratate la compilare (try-catch). Unchecked (RuntimeException) apar la execuție (ex: NullPointer) și nu sunt obligatorii de prins." },
+            
+            // JAVA SENIOR
+            { l: "Senior", c: "Java", q: "Cum funcționează Garbage Collector-ul G1?", a: "Împarte heap-ul în regiuni de dimensiuni egale. Evacuează regiunile cu cele mai multe 'gunoaie' (Garbage First) pentru a minimiza pauzele (Stop-the-world)." },
+            { l: "Senior", c: "Java", q: "Ce este 'Memory Leak' în Java și cum îl detectezi?", a: "Obiecte nefolosite care sunt încă referențiate (de ex: în static maps), deci GC nu le poate șterge. Se detectează cu Profilers (VisualVM) analizând Heap Dump." },
+
+            // SPRING JUNIOR
+            { l: "Junior", c: "Spring", q: "Ce este Inversion of Control (IoC)?", a: "Principiul prin care controlul execuției (crearea obiectelor) este transferat de la programator către framework (Spring Container)." },
+            { l: "Junior", c: "Spring", q: "Care este diferența dintre @Controller și @RestController?", a: "@Controller este pentru MVC (returnează HTML). @RestController este specializat pentru API-uri și adaugă automat @ResponseBody (returnează JSON/XML)." },
+            { l: "Junior", c: "Spring", q: "Ce face adnotarea @Autowired?", a: "Spune containerului Spring să injecteze automat o dependență (Bean) în acel câmp/constructor/setter." },
+
+            // SPRING MID
+            { l: "Middle", c: "Spring", q: "Cum rezolvi problema N+1 în Hibernate?", a: "Apare când încarci o listă (1 query) și apoi accesezi o relație Lazy pentru fiecare (N queries). Soluție: Folosește `JOIN FETCH` în JPQL sau `@EntityGraph`." },
+            { l: "Middle", c: "Spring", q: "Care sunt Bean Scopes în Spring?", a: "Singleton (default, o instanță per container), Prototype (nou la fiecare cerere), Request, Session, Application." },
+            { l: "Middle", c: "Spring", q: "Cum funcționează @Transactional?", a: "Creează un proxy în jurul metodei. Deschide o tranzacție la început și face Commit la final. Dacă apare o RuntimeException, face Rollback automat." },
+
+            // POSTGRES & DB
+            { l: "Junior", c: "DB", q: "Ce înseamnă ACID?", a: "Atomicity (totul sau nimic), Consistency (date valide), Isolation (independență), Durability (salvare permanentă)." },
+            { l: "Middle", c: "Postgres", q: "Diferența dintre JSON și JSONB în Postgres?", a: "JSON este stocat ca text (validat). JSONB este stocat într-un format binar descompus, suportă indexare și este mult mai rapid la interogare." },
+            { l: "Senior", c: "Postgres", q: "Ce este un Partial Index și când îl folosim?", a: "Un index cu clauză WHERE (ex: `WHERE active=true`). Reduce dimensiunea indexului și crește viteza de scriere, ideal pentru cozi sau statusuri." },
+            { l: "Senior", c: "Postgres", q: "Index B-Tree vs GIN?", a: "B-Tree este pentru egalitate/sortare scalară. GIN (Generalized Inverted Index) este pentru structuri compuse: JSONB keys, Arrays, Text Search." },
+
+            // ARCHITECTURE & WEB
+            { l: "Junior", c: "Web", q: "Diferența dintre HTTP 401 și 403?", a: "401 (Unauthorized) înseamnă 'Nu știu cine ești' (Login necesar). 403 (Forbidden) înseamnă 'Știu cine ești, dar nu ai voie' (Permisiuni insuficiente)." },
+            { l: "Middle", c: "Web", q: "Ce este CORS și cum funcționează?", a: "Cross-Origin Resource Sharing. Browserul blochează cererile către alt domeniu. Serverul trebuie să trimită headerul `Access-Control-Allow-Origin` pentru a permite accesul." },
+            { l: "Senior", c: "Arch", q: "Explică Teorema CAP.", a: "Într-un sistem distribuit poți avea maxim 2 din 3: Consistency, Availability, Partition Tolerance. Deoarece P este inevitabil în rețea, alegi între CP (Bănci) și AP (Social Media)." },
+            { l: "Senior", c: "Arch", q: "Ce este Idempotency în REST?", a: "Proprietatea unei operații de a produce același rezultat indiferent de câte ori este executată (ex: GET, PUT, DELETE sunt idempotente; POST nu este)." },
+
+            // REACT
+            { l: "Junior", c: "React", q: "Diferența dintre Props și State?", a: "Props sunt date primite de la părinte (read-only). State sunt date interne componentei (mutabile prin setter) care declanșează re-render." },
+            { l: "Junior", c: "React", q: "Ce este Virtual DOM?", a: "O copie ușoară a DOM-ului în memorie. React calculează diferențele (diffing) pe Virtual DOM și actualizează DOM-ul real doar unde e necesar (performanță)." },
+            { l: "Middle", c: "React", q: "Ce face array-ul de dependențe din useEffect?", a: "Controlează când rulează efectul. `[]` = doar la mount. `[prop]` = la mount și când prop se schimbă. Lipsă = la fiecare render." },
+            
+            // DEVOPS
+            { l: "Junior", c: "DevOps", q: "Imagine Docker vs Container?", a: "Imaginea este clasa (fișierul static, rețeta). Containerul este obiectul (procesul care rulează)." },
+            { l: "Senior", c: "DevOps", q: "Strategia Blue-Green Deployment?", a: "Menții două medii identice. Blue e live. Faci deploy pe Green. După teste, muți routerul pe Green. Zero downtime și rollback instant." },
+
+
+            // JAVA EXTENSIONS
+    { l: "Junior", c: "Java", q: "Care este diferența dintre `final`, `finally` și `finalize`?", a: "`final`: restricționează modificarea (variabile, metode, clase). `finally`: bloc în try-catch executat mereu. `finalize`: metodă (deprecated) apelată de GC înainte de distrugere." },
+    { l: "Junior", c: "Java", q: "Ce este `StringBuilder` și cum diferă de `String`?", a: "`StringBuilder` este mutabil și nu creează obiecte noi la concatenare, fiind mult mai performant în bucle decât `String` (care este imutabil)." },
+    { l: "Middle", c: "Java", q: "Ce sunt Stream-urile în Java și ce înseamnă 'Lazy Evaluation'?", a: "Un flux de date procesat declarativ. Operațiile intermediare (filter, map) nu se execută până când nu este apelată o operație terminală (collect, forEach)." },
+    { l: "Middle", c: "Java", q: "Cum funcționează `ConcurrentHashMap`?", a: "Este thread-safe, dar nu blochează toată mapa (ca Hashtable). Folosește 'lock stripping' (segmente de blocare) sau CAS (Compare-And-Swap) pentru scrieri rapide concurente." },
+    { l: "Senior", c: "Java", q: "Ce face keyword-ul `volatile`?", a: "Garantează vizibilitatea unei variabile între thread-uri (prevenind caching-ul CPU), dar nu garantează atomicitatea operațiilor (pentru asta trebuie `synchronized` sau `Atomic*`)." },
+
+// SPRING EXTENSIONS
+    { l: "Junior", c: "Spring", q: "Când se execută metodele adnotate cu `@PostConstruct`?", a: "Imediat după ce Spring a instanțiat bean-ul și a injectat toate dependențele, dar înainte ca bean-ul să fie folosit." },
+    { l: "Middle", c: "Spring", q: "Ce este Spring AOP și dă un exemplu de utilizare.", a: "Aspect Oriented Programming permite separarea logicii transversale (logging, tranzacții, securitate) de logica de business. Funcționează prin Proxy-uri." },
+    { l: "Senior", c: "Spring", q: "Cum gestionezi 'Circular Dependencies' în Spring?", a: "De preferat prin refactorizare. Dacă nu se poate, se folosește `@Lazy` pe unul dintre constructorii/câmpurile injectate pentru a amâna inițializarea." },
+
+// POSTGRES & DB EXTENSIONS
+    { l: "Junior", c: "DB", q: "Ce este o cheie străină (Foreign Key)?", a: "O constrângere care leagă o coloană dintr-un tabel de Primary Key-ul altui tabel, asigurând integritatea referențială a datelor." },
+    { l: "Middle", c: "Postgres", q: "Ce comandă folosești pentru a analiza performanța unui query?", a: "`EXPLAIN ANALYZE`. Aceasta arată planul de execuție estimat și timpul real de execuție pentru fiecare pas (scan, join, sort)." },
+    { l: "Senior", c: "DB", q: "Ce este Database Sharding?", a: "O metodă de partiționare orizontală unde datele sunt distribuite pe mai multe servere fizice (noduri) pentru a depăși limitele unui singur server." },
+    { l: "Senior", c: "Postgres", q: "La ce ajută Connection Pooling (ex: HikariCP, PgBouncer)?", a: "Deschiderea conexiunilor TCP este costisitoare. Pooling-ul menține un set de conexiuni deschise și le refolosește, reducând latența și încărcarea pe DB." },
+
+// ARCHITECTURE & WEB EXTENSIONS
+    { l: "Junior", c: "Web", q: "Care sunt metodele HTTP standard și rolul lor?", a: "GET (citire), POST (creare), PUT (înlocuire completă), PATCH (actualizare parțială), DELETE (ștergere)." },
+    { l: "Middle", c: "Web", q: "JWT vs Session Authentication?", a: "Session: Serverul stochează starea (stateful), clientul trimite doar ID-ul. JWT: Token semnat care conține datele (stateless), serverul doar verifică semnătura." },
+    { l: "Senior", c: "Arch", q: "Ce este pattern-ul Circuit Breaker?", a: "Un mecanism de protecție care 'întrerupe' apelurile către un serviciu extern picat pentru a preveni blocarea sistemului și a permite recuperarea (fail-fast)." },
+    { l: "Senior", c: "Arch", q: "Event Sourcing vs CQRS?", a: "CQRS separă modelele de Read și Write. Event Sourcing stochează starea ca o secvență de evenimente (istoric complet), nu doar starea curentă." },
+
+// REACT EXTENSIONS
+    { l: "Junior", c: "React", q: "De ce este necesar atributul `key` în liste?", a: "Ajută React să identifice ce elemente s-au schimbat, adăugat sau șters. Fără `key` unic, randarea listelor este ineficientă și poate cauza bug-uri." },
+    { l: "Middle", c: "React", q: "Diferența dintre `useMemo` și `useCallback`?", a: "`useMemo` memorează rezultatul unei funcții (valoare calculată). `useCallback` memorează însăși definiția funcției pentru a nu fi recreată la fiecare render." },
+    { l: "Senior", c: "React", q: "Ce este Context API și când îl folosim în loc de Redux?", a: "Un mecanism nativ pentru a evita 'Prop Drilling'. Ideal pentru date globale simple (temă, user, limbă). Redux e mai bun pentru state complex și updates frecvente." },
+    { l: "Senior", c: "React", q: "SSR (Server Side Rendering) vs CSR (Client Side)?", a: "CSR descarcă un bundle JS gol și randează în browser (SEO slab inițial). SSR (Next.js) randează HTML-ul pe server, oferind performanță și SEO mai bun." },
+
+// DEVOPS EXTENSIONS
+    { l: "Junior", c: "DevOps", q: "Ce este CI/CD?", a: "Continuous Integration (testare și build automat la fiecare commit) și Continuous Deployment (lansare automată în producție/staging)." },
+    { l: "Middle", c: "DevOps", q: "Ce este un Kubernetes Pod?", a: "Cea mai mică unitate de execuție în K8s. De obicei conține un container (ex: aplicația Java), dar poate conține mai multe (sidecars) care împart același IP și stocare." },
+    { l: "Senior", c: "DevOps", q: "Ce înseamnă Infrastructure as Code (IaC)?", a: "Gestionarea infrastructurii (servere, rețele) prin fișiere de configurare (Terraform, Ansible) în loc de configurare manuală, permițând versionare și replicare." },
+
+
+    { 
+        l: "Junior", c: "Java", 
+        q: "Care este diferența dintre Overloading (Supraîncărcare) și Overriding (Suprascriere)?", 
+        a: "Overloading: Aceeași metodă, parametri diferiți (în aceeași clasă). Overriding: Aceeași metodă și semnătură, dar implementare diferită (în subclase/moștenire)." 
+    },
+    { 
+        l: "Junior", c: "Java", 
+        q: "Diferența dintre `int` și `Integer`?", 
+        a: "`int` este primitivă (stochează valoarea, nu poate fi null, performant). `Integer` este un Wrapper Object (stochează referință, poate fi null, folosit în colecții precum List<Integer>)." 
+    },
+    { 
+        l: "Junior", c: "Java", 
+        q: "Ce este un `NullPointerException` și cum îl eviți?", 
+        a: "Apare când accesezi o metodă/câmp pe o referință null. Se evită prin verificări `if (obj != null)`, folosind `Optional` (Java 8+), sau adnotări `@NonNull`." 
+    },
+    { 
+        l: "Junior", c: "Java", 
+        q: "Diferența dintre `ArrayList` și `LinkedList`?", 
+        a: "`ArrayList` este bazat pe array (acces rapid O(1), ștergere/inserare lentă la mijloc). `LinkedList` este listă dublu înlănțuită (acces lent O(n), ștergere/inserare rapidă)." 
+    },
+    { 
+        l: "Junior", c: "Java", 
+        q: "Ce face cuvântul cheie `break` vs `continue` într-o buclă?", 
+        a: "`break` oprește complet execuția buclei. `continue` sare doar peste iterația curentă și trece la următoarea." 
+    },
+
+    // SPRING BOOT (Web & Basics)
+    { 
+        l: "Junior", c: "Spring", 
+        q: "Care este diferența dintre `@RequestParam` și `@PathVariable`?", 
+        a: "`@PathVariable` extrage valori din URI (`/users/5`). `@RequestParam` extrage din query string (`/users?id=5`)." 
+    },
+    { 
+        l: "Junior", c: "Spring", 
+        q: "Ce reprezintă `Dependency Injection` (DI)?", 
+        a: "Un design pattern unde obiectele nu își creează singure dependențele (`new Service()`), ci le primesc din exterior (de la Spring Container), facilitând testarea și decuplarea." 
+    },
+    { 
+        l: "Junior", c: "Spring", 
+        q: "Cum returnezi un status HTTP specific (ex: 404) dintr-un Controller?", 
+        a: "Folosind clasa `ResponseEntity`: `return ResponseEntity.status(HttpStatus.NOT_FOUND).body(...);` sau aruncând o excepție gestionată de un `@ExceptionHandler`." 
+    },
+
+    // DATABASE (SQL Basics)
+    { 
+        l: "Junior", c: "DB", 
+        q: "Care este diferența dintre `WHERE` și `HAVING`?", 
+        a: "`WHERE` filtrează rândurile *înainte* de grupare. `HAVING` filtrează grupurile *după* ce a fost aplicat `GROUP BY`." 
+    },
+    { 
+        l: "Junior", c: "DB", 
+        q: "Explică `INNER JOIN` vs `LEFT JOIN`.", 
+        a: "`INNER JOIN` returnează doar rândurile care au pereche în ambele tabele. `LEFT JOIN` returnează tot din stânga, plus datele din dreapta (sau NULL dacă nu există pereche)." 
+    },
+    { 
+        l: "Junior", c: "DB", 
+        q: "Ce face clauza `DISTINCT`?", 
+        a: "Elimină duplicatele din rezultatul interogării, returnând doar valorile unice." 
+    },
+
+    // GIT & TOOLS (Essential for work)
+    { 
+        l: "Junior", c: "Git", 
+        q: "Care este diferența dintre `git pull` și `git fetch`?", 
+        a: "`git fetch` descarcă modificările de pe server dar nu le aplică pe codul tău. `git pull` face `fetch` + `merge` (le descarcă și le aplică imediat)." 
+    },
+    { 
+        l: "Junior", c: "Git", 
+        q: "Ce faci dacă ai modificări locale dar vrei să schimbi branch-ul fără să faci commit?", 
+        a: "Folosești `git stash` pentru a salva temporar modificările, schimbi branch-ul, și apoi `git stash pop` când revii." 
+    },
+    { 
+        l: "Junior", c: "General", 
+        q: "Ce este un cod HTTP 200 vs 201?", 
+        a: "200 (OK) este succes general (ex: GET). 201 (Created) este succes specific după un POST care a creat o resursă nouă." 
+    }
+
+
+        ];
+
+        function filterQuiz(level) {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                if(btn.innerText.includes(level) || (level === 'all' && btn.innerText.includes('Toate'))) {
+                    btn.classList.add('ring-2', 'ring-slate-400');
+                } else {
+                    btn.classList.remove('ring-2', 'ring-slate-400');
+                }
+            });
+
+            const filtered = level === 'all' ? questionBank : questionBank.filter(q => q.l === level);
+            
+            filtered.forEach(q => {
+                const id = Math.random().toString(36).substr(2, 9);
+                let badgeClass = "bg-slate-100 text-slate-600";
+                if(q.c === 'Java' || q.c === 'Spring') badgeClass = "bg-orange-50 text-orange-700 border-orange-100";
+                if(q.c === 'Postgres' || q.c === 'DB') badgeClass = "bg-green-50 text-green-700 border-green-100";
+
+                const div = document.createElement('div');
+                div.className = 'bg-white border border-slate-200 rounded-lg overflow-hidden transition hover:shadow-sm';
+                div.innerHTML = `
+                    <button onclick="toggleAc('${id}')" class="w-full text-left p-3 flex items-start gap-3 hover:bg-slate-50 transition focus:outline-none">
+                        <span class="mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${badgeClass} min-w-fit">${q.c}</span>
+                        <div class="flex-1">
+                            <span class="font-medium text-slate-700 text-sm block">${q.q}</span>
+                        </div>
+                        <span id="icon-${id}" class="text-slate-300 font-bold transition-transform text-lg">+</span>
+                    </button>
+                    <div id="ans-${id}" class="accordion-content bg-slate-50 border-t border-slate-100 text-sm text-slate-600">
+                        <div class="p-4 leading-relaxed border-l-4 border-blue-400 ml-0">${q.a}</div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function toggleAc(id) {
+            const content = document.getElementById(`ans-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            if(content.style.maxHeight) {
+                content.style.maxHeight = null;
+                content.style.opacity = '0';
+                icon.style.transform = 'rotate(0deg)';
+                icon.innerText = '+';
+            } else {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.style.opacity = '1';
+                icon.style.transform = 'rotate(45deg)';
+                icon.innerText = '+'; 
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initChart();
+            filterQuiz('all');
+        });
+    </script>
+</body>
+</html>
