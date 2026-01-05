@@ -310,27 +310,404 @@
                     <div id="http-result" class="text-sm italic text-stone-500 min-h-[40px]">Apasă un buton...</div>
                 </div>
 
-                <!-- @Component vs @Bean -->
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card">
-                    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">Spring: @Component vs @Bean</h4>
-                    <div class="space-y-4 text-sm">
-                        <div class="flex items-start">
-                            <div class="bg-purple-100 p-2 rounded mr-3 text-xl">🧩</div>
-                            <div>
-                                <strong class="text-purple-900">@Component</strong>
-                                <p class="text-stone-600">Se pune pe <strong>clasele tale</strong>. Spring le scanează automat (Component Scanning) și le instanțiază. Ex: @Service, @Controller, @Repository sunt specializări ale @Component.</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-yellow-100 p-2 rounded mr-3 text-xl">⚙️</div>
-                            <div>
-                                <strong class="text-yellow-900">@Bean</strong>
-                                <p class="text-stone-600">Se pune pe <strong>metode</strong> într-o clasă @Configuration. Se folosește când vrei să instanțiezi o clasă dintr-o <strong>librărie externă</strong> (pe care nu poți pune @Component) sau când ai nevoie de logică complexă de configurare.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- @Component -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card">
+    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">
+        Spring: @Component (Component Scanning)
+    </h4>
 
+    <div class="space-y-4 text-sm">
+
+        <div class="flex items-start">
+            <div class="bg-purple-100 p-2 rounded mr-3 text-xl">🧩</div>
+            <div>
+                <strong class="text-purple-900">Ce face @Component?</strong>
+                <p class="text-stone-600">
+                    <code>@Component</code> se pune pe <strong>clasele tale</strong>
+                    și permite Spring să le descopere automat prin
+                    <strong>Component Scanning</strong>.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-green-100 p-2 rounded mr-3 text-xl">🔍</div>
+            <div>
+                <strong class="text-green-900">Specializări</strong>
+                <p class="text-stone-600">
+                    <code>@Service</code>, <code>@Repository</code>,
+                    <code>@Controller</code> sunt specializări semantice ale
+                    <code>@Component</code> (doar semantică + funcționalitate suplimentară).
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Service
+public class UserService {
+    private final UserRepository repo;
+
+    public UserService(UserRepository repo) {
+        this.repo = repo;
+    }
+}
+                </pre>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-blue-100 p-2 rounded mr-3 text-xl">🎯</div>
+            <div>
+                <strong class="text-blue-900">Când îl folosești?</strong>
+                <p class="text-stone-600">
+                    Când ai cod propriu și instanțiere simplă, fără logică
+                    specială de configurare.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- @Bean -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card mt-6">
+    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">
+        Spring: @Bean (Configurare explicită)
+    </h4>
+
+    <div class="space-y-4 text-sm">
+
+        <div class="flex items-start">
+            <div class="bg-yellow-100 p-2 rounded mr-3 text-xl">⚙️</div>
+            <div>
+                <strong class="text-yellow-900">Ce face @Bean?</strong>
+                <p class="text-stone-600">
+                    <code>@Bean</code> se pune pe <strong>metode</strong> într-o
+                    clasă <code>@Configuration</code> și oferă
+                    <strong>control total asupra instanțierii</strong>.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-purple-100 p-2 rounded mr-3 text-xl">📦</div>
+            <div>
+                <strong class="text-purple-900">Caz frecvent</strong>
+                <p class="text-stone-600">
+                    Folosit des pentru <strong>librării externe</strong> (unde nu
+                    poți adăuga <code>@Component</code>) sau pentru obiecte cu
+                    configurare complexă.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Bean
+public ObjectMapper objectMapper() {
+    return new ObjectMapper();
+}
+                </pre>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-indigo-100 p-2 rounded mr-3 text-xl">🧠</div>
+            <div>
+                <strong class="text-indigo-900">Nuanță importantă</strong>
+                <p class="text-stone-600">
+                    <code>@Bean</code> poate fi folosit și pentru
+                    <strong>clasele tale</strong>, dacă ai nevoie de logică
+                    specială la creare.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Bean
+public UserService userService(UserRepository repo) {
+    return new UserService(repo);
+}
+                </pre>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-blue-100 p-2 rounded mr-3 text-xl">🎯</div>
+            <div>
+                <strong class="text-blue-900">Regula de aur</strong>
+                <p class="text-stone-600">
+                    Diferența nu este dacă obiectul e intern sau extern,
+                    ci <strong>cine controlează instanțierea</strong>.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+                <!-- De ce Service si Repository sunt Bean-uri -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card mt-6">
+    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">
+        Spring: De ce @Service și @Repository sunt Bean-uri?
+    </h4>
+
+    <div class="space-y-4 text-sm">
+
+        <div class="flex items-start">
+            <div class="bg-green-100 p-2 rounded mr-3 text-xl">🧩</div>
+            <div>
+                <strong class="text-green-900">Component Scanning</strong>
+                <p class="text-stone-600">
+                    <code>@Service</code> și <code>@Repository</code> sunt
+                    <strong>specializări ale <code>@Component</code></strong>.
+                    Spring le detectează automat și le înregistrează în context.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Service
+public class UserService {}
+
+@Repository
+public class UserRepository {}
+                </pre>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-yellow-100 p-2 rounded mr-3 text-xl">❓</div>
+            <div>
+                <strong class="text-yellow-900">Confuzie frecventă</strong>
+                <p class="text-stone-600">
+                    Bean-urile NU sunt doar obiecte din librării externe.
+                    Clasele tale sunt Bean-uri pentru că Spring le gestionează,
+                    nu pentru că ar fi externe.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-red-100 p-2 rounded mr-3 text-xl">🚫</div>
+            <div>
+                <strong class="text-red-900">Ce NU este un Bean</strong>
+                <p class="text-stone-600">
+                    Un obiect creat manual cu <code>new</code> sau o clasă fără
+                    adnotări Spring NU este un Bean.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+public class UserDto {} // ❌ nu e Bean
+
+UserService s = new UserService(); // ❌ nu e Bean
+                </pre>
+            </div>
+        </div>
+
+        <div class="flex items-start">
+            <div class="bg-stone-100 p-2 rounded mr-3 text-xl">🎯</div>
+            <div>
+                <strong class="text-stone-800">Răspuns de interviu</strong>
+                <p class="text-stone-600">
+                    „Un Spring Bean este orice obiect gestionat de Spring Container.
+                    <code>@Service</code> și <code>@Repository</code> sunt Bean-uri
+                    prin Component Scanning, iar <code>@Bean</code> este doar o altă metodă
+                    de definire.”
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+                <!-- Ce este un Spring Bean -->
+<!-- Ce este un Spring Bean -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card mt-6">
+    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">
+        Spring: Ce este un Bean (dincolo de adnotări)
+    </h4>
+
+    <div class="space-y-4 text-sm">
+
+        <!-- Definition -->
+        <div class="flex items-start">
+            <div class="bg-blue-100 p-2 rounded mr-3 text-xl">🫘</div>
+            <div>
+                <strong class="text-blue-900">Ce înseamnă „gestionat de Spring”?</strong>
+                <p class="text-stone-600">
+                    Un <strong>Spring Bean</strong> nu este doar un obiect creat de Spring,
+                    ci un obiect asupra căruia Spring aplică <strong>injection, lifecycle,
+                    proxy-uri și cross-cutting concerns</strong>.
+                </p>
+            </div>
+        </div>
+
+        <!-- What Spring does -->
+        <div class="flex items-start">
+            <div class="bg-green-100 p-2 rounded mr-3 text-xl">🔧</div>
+            <div>
+                <strong class="text-green-900">Ce face Spring cu un Bean?</strong>
+                <ul class="list-disc list-inside text-stone-600 mt-1">
+                    <li>rezolvă dependențe (Dependency Injection)</li>
+                    <li>controlează ciclul de viață (init / destroy)</li>
+                    <li>aplică proxy-uri (@Transactional, @Async)</li>
+                    <li>respectă scope-ul (singleton, request etc.)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example -->
+        <div class="flex items-start">
+            <div class="bg-purple-100 p-2 rounded mr-3 text-xl">🧪</div>
+            <div>
+                <strong class="text-purple-900">Exemplu concret</strong>
+                <p class="text-stone-600">
+                    Doar pentru că această clasă este Bean, Spring poate injecta automat
+                    dependențe și gestiona tranzacții:
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Service
+public class OrderService {
+
+    private final OrderRepository repo;
+
+    public OrderService(OrderRepository repo) {
+        this.repo = repo;
+    }
+
+    @Transactional
+    public void placeOrder() {
+        repo.save(...);
+    }
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- Not a Bean -->
+        <div class="flex items-start">
+            <div class="bg-red-100 p-2 rounded mr-3 text-xl">🚫</div>
+            <div>
+                <strong class="text-red-900">Ce se întâmplă dacă NU e Bean?</strong>
+                <p class="text-stone-600">
+                    Un obiect creat cu <code>new</code> nu beneficiază de niciuna dintre
+                    facilitățile Spring (injectare, tranzacții, proxy-uri).
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+OrderService service = new OrderService(repo);
+// ❌ @Transactional nu funcționează
+                </pre>
+            </div>
+        </div>
+
+        <!-- Takeaway -->
+        <div class="flex items-start">
+            <div class="bg-stone-100 p-2 rounded mr-3 text-xl">🎯</div>
+            <div>
+                <strong class="text-stone-800">Ideea-cheie</strong>
+                <p class="text-stone-600">
+                    <strong>Bean-ul este unitatea de bază a Spring</strong>.
+                    Adnotările precum <code>@Component</code> sau <code>@Bean</code>
+                    sunt doar moduri diferite de a spune:
+                    „Spring, te rog gestionează acest obiect”.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+                <!-- Lombok @AllArgsConstructor vs @RequiredArgsConstructor -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card">
+    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">
+        Spring & Lombok: @AllArgsConstructor vs @RequiredArgsConstructor
+    </h4>
+
+    <div class="space-y-4 text-sm">
+
+        <!-- Problem -->
+        <div class="flex items-start">
+            <div class="bg-red-100 p-2 rounded mr-3 text-xl">⚠️</div>
+            <div>
+                <strong class="text-red-900">@AllArgsConstructor (problematic)</strong>
+                <p class="text-stone-600">
+                    Generează constructor cu <strong>toate câmpurile</strong>. Dacă ai câmpuri care nu sunt Bean-uri Spring
+                    (ex: <code>String</code>), aplicația va eșua la runtime.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@AllArgsConstructor
+@Service
+public class UserService {
+    private UserRepository repo;
+    private String name; // ❌ nu e Bean
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- Correct -->
+        <div class="flex items-start">
+            <div class="bg-green-100 p-2 rounded mr-3 text-xl">✅</div>
+            <div>
+                <strong class="text-green-900">@RequiredArgsConstructor (recomandat)</strong>
+                <p class="text-stone-600">
+                    Generează constructor <strong>doar pentru câmpurile final</strong>.
+                    Spring face automat constructor injection dacă există un singur constructor.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Service
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserRepository repo;
+
+    @Value("${user.name}")
+    private final String name;
+}
+                </pre>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- @Autowired: Field vs Constructor -->
+<div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover-card mt-6">
+    <h4 class="font-bold text-lg mb-4 text-stone-800 border-b pb-2">
+        Spring: @Autowired pe Field vs Constructor
+    </h4>
+
+    <div class="space-y-4 text-sm">
+
+        <!-- Field Injection -->
+        <div class="flex items-start">
+            <div class="bg-yellow-100 p-2 rounded mr-3 text-xl">🚫</div>
+            <div>
+                <strong class="text-yellow-900">@Autowired pe atribut (Field Injection)</strong>
+                <p class="text-stone-600">
+                    Ușor de scris, dar <strong>nerecomandat</strong>. Ascunde dependențele, nu permite câmpuri <code>final</code>
+                    și este greu de testat.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository repo;
+}
+                </pre>
+            </div>
+        </div>
+
+        <!-- Constructor Injection -->
+        <div class="flex items-start">
+            <div class="bg-blue-100 p-2 rounded mr-3 text-xl">🏆</div>
+            <div>
+                <strong class="text-blue-900">Constructor Injection (Best Practice)</strong>
+                <p class="text-stone-600">
+                    Dependențele sunt clare, clasa este imutabilă și ușor de testat.
+                    <strong>@Autowired nu este necesar</strong> dacă există un singur constructor.
+                </p>
+                <pre class="bg-stone-100 p-3 rounded mt-2 text-xs overflow-x-auto">
+@Service
+public class UserService {
+
+    private final UserRepository repo;
+
+    public UserService(UserRepository repo) {
+        this.repo = repo;
+    }
+}
+                </pre>
+            </div>
+        </div>
+
+    </div>
+</div>
+                
                 <!-- HTTP Status Codes -->
                 <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 md:col-span-2">
                     <h4 class="font-bold text-lg mb-4 text-stone-800">HTTP Status Codes Cheat Sheet</h4>
